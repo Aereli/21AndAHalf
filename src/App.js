@@ -4,23 +4,27 @@ import "./App.css"
 
 function App() {
   const [data, setData] = useState([])
+  const [newData, setNewData] = useState("")
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await fetch("/deck").then((res) => res.json())
       setData(result)
+      console.log("this is data", data)
     }
-
     fetchData()
-    console.log(data.deck_id)
-  }, [])
+  }, [newData])
+
+  const newDeckHandleClick = () => {
+    setNewData(data.deck_id)
+  }
 
   return (
     <div className="App">
-      this is home
       <div>
-        <h1>{data.deck_id}</h1>
+        <h2>Deck ID: {newData}</h2>
       </div>
+      <button onClick={newDeckHandleClick}>New Deck</button>
     </div>
   )
 }
