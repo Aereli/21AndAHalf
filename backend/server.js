@@ -1,0 +1,34 @@
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config()
+}
+
+const express = require("express")
+const cors = require("cors")
+const axios = require("axios")
+const app = express()
+const path = require("path")
+
+const PORT = process.env.PORt || 5000
+
+app.use(cors())
+app.use(express.json())
+
+app.get("/deck", async (request, response) => {
+  let { data } = await axios.get(
+    "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
+  )
+  response.send(data)
+})
+
+if (["production"].includes(process.env.NODE_ENV)) {
+  app.use(express.static("client/build"))
+
+  const path = require("path")
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve("client", "build", "index.html"))
+  })
+}
+
+app.listen(PORT, () => {
+  console.log(`server is running on port: ${PORT}`)
+})
