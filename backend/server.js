@@ -20,6 +20,14 @@ app.get("/deck", async (request, response) => {
   response.send(data)
 })
 
+app.get("/draw", async (request, response) => {
+  const deckId = await request.query.deck_id
+  let { data } = await axios.get(
+    `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`
+  )
+  response.send(data)
+})
+
 if (["production"].includes(process.env.NODE_ENV)) {
   app.use(express.static("client/build"))
 
