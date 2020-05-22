@@ -4,35 +4,34 @@ import "./App.css"
 function App() {
   const [data, setData] = useState([])
   const [newData, setNewData] = useState("")
-  // const [remain, setRemain] = useState("")
   const [cardObject, setCardObject] = useState([])
-  const [cards, setCards] = useState([])
 
   useEffect(() => {
     const fetchData = () => {
       fetch("/deck")
         .then((res) => res.json())
         .then((data) => setData(data))
-      // setData(result)
-      console.log("this is data", data)
+        .catch((err) => console.log(err))
     }
     fetchData()
   }, [newData])
 
   const newDeckHandleClick = () => {
     setNewData(data.deck_id)
+    setCardObject([])
   }
 
   const drawCardHandleClick = async () => {
     const result = await fetch(`/draw?deck_id=${newData}`).then((res) =>
-      res.json()
+      res
+        .json()
+        .then((data) => data.cards[0])
+        .catch((err) => console.log(err))
     )
-    const { cards } = result
 
-    const code = cards.map((code) => <p>{code.code}</p>)
-    setCards(code)
-
-    cardObject.push(cards)
+    const temp = [...cardObject, result]
+    console.log(temp)
+    setCardObject(temp)
   }
 
   return (
@@ -44,7 +43,20 @@ function App() {
       <div>
         <button onClick={drawCardHandleClick}>Draw Card</button>
       </div>
-      <div>{cards}</div>
+      <div className="card-object">
+        {cardObject.map((card, index) => (
+          <>
+            {/* <p>{card.code}</p> */}
+            <img
+              onClick={(e) => console.log(e.currentTarget)}
+              key={index}
+              className="card-image"
+              src={card.image}
+              alt="card"
+            ></img>
+          </>
+        ))}
+      </div>
     </div>
   )
 }
