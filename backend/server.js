@@ -14,17 +14,17 @@ app.use(cors())
 app.use(express.json())
 
 app.get("/deck", async (request, response) => {
-  let { data } = await axios.get(
-    "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
-  )
+  let { data } = await axios
+    .get("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
+    .catch((err) => res.status(400).json("Error: " + err))
   response.send(data)
 })
 
 app.get("/draw", async (request, response) => {
   const deckId = await request.query.deck_id
-  let { data } = await axios.get(
-    `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`
-  )
+  let { data } = await axios
+    .get(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
+    .catch((err) => res.status(400).json("Error: " + err))
   response.send(data)
 })
 
