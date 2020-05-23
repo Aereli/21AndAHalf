@@ -29,9 +29,8 @@ function App() {
         .catch((err) => console.log(err))
     )
 
-    const temp = [...cardObject, result]
-    console.log(temp)
-    setCardObject(temp)
+    const cardArray = [...cardObject, result]
+    setCardObject(cardArray)
   }
 
   return (
@@ -56,6 +55,10 @@ function App() {
             ></img>
           </>
         ))}
+      </div>
+
+      <div>
+        <p>Player Hand</p>
       </div>
     </div>
   )

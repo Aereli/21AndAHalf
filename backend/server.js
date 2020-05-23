@@ -33,7 +33,9 @@ if (["production"].includes(process.env.NODE_ENV)) {
 
   const path = require("path")
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve("client", "build", "index.html"))
+    res
+      .sendFile(path.resolve("client", "build", "index.html"))
+      .catch((err) => res.status(500).json("Error: " + err)) //not sure if this is needed here.
   })
 }
 
