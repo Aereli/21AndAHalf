@@ -6,3 +6,11 @@
 .card-image {
   width: 100px;
 }
+
+.invisible {
+  visibility: hidden;
+}
+
+.notInvisible {
+  visibility: visible;
+}

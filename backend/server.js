@@ -3,15 +3,13 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const express = require("express")
-const cors = require("cors")
+// const cors = require("cors")
 const axios = require("axios")
 const app = express()
-const path = require("path")
+// const path = require("path")
 
-const PORT = process.env.PORt || 5000
-
-app.use(cors())
-app.use(express.json())
+// app.use(cors())
+// app.use(express.json())
 
 app.get("/deck", async (request, response) => {
   let { data } = await axios
@@ -38,6 +36,8 @@ if (["production"].includes(process.env.NODE_ENV)) {
       .catch((err) => res.status(500).json("Error: " + err)) //not sure if this is needed here.
   })
 }
+
+const PORT = process.env.PORt || 5000
 
 app.listen(PORT, () => {
   console.log(`server is running on port: ${PORT}`)

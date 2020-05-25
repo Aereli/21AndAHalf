@@ -1,0 +1,13 @@
+.player-hand {
+  width: 100vw;
+  height: 300px;
+  text-align: center;
+  background-color: mistyrose;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+}
+
+img {
+  width: 100px;
+}
