@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import "./App.css"
 import DrawCard from "./components/DrawCard"
+import Table from "./components/Table/Table"
 
 function App() {
   const [data, setData] = useState([])
@@ -28,6 +29,7 @@ function App() {
         <h2>Deck ID: {newData}</h2>
       </div>
       <button onClick={newDeckHandleClick}>New Deck</button>
+      <Table />
       <div className={toggle}>
         <DrawCard newData={newData}></DrawCard>
       </div>

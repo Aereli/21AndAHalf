@@ -1,5 +1,6 @@
-import React, { useState, useContext } from "react"
+import React, { useState } from "react"
 import PlayerHand from "./PlayerHand/PlayerHand"
+import BackOfCard from "../images/backOfCard.jpg"
 
 const DrawCard = ({ newData }) => {
   const [cardObject, setCardObject] = useState([])
@@ -12,23 +13,27 @@ const DrawCard = ({ newData }) => {
         .then((data) => data.cards[0])
         .catch((err) => console.log(err))
     )
-
     // Spread operator, wrapper function (recommended)
     //https://medium.com/javascript-in-plain-english/how-to-add-to-an-array-in-react-state-3d08ddb2e1dc
     setCardObject((cardObject) => [...cardObject, result])
   }
 
   const send = (index, card) => {
-    console.log("this is e", index, card)
-
     setPlayerObject((playerObject) => [...playerObject, card])
     setCardObject(cardObject.filter((c) => c !== card))
   }
 
+  const handleClear = () => {
+    setCardObject([])
+    setPlayerObject([])
+  }
   return (
     <div>
       <div>
-        <button onClick={drawCardHandleClick}>Draw Card</button>
+        <button onClick={handleClear}>clear</button>
+        <button onClick={drawCardHandleClick}>
+          <img src={BackOfCard} alt="back of card"></img>
+        </button>
       </div>
 
       <div className="card-object">
@@ -45,7 +50,6 @@ const DrawCard = ({ newData }) => {
         ))}
       </div>
       <PlayerHand playerObject={playerObject} />
-      {/* <div>{playerObject || playerObject.map((card) => <div>{card}</div>)}</div> */}
     </div>
   )
 }

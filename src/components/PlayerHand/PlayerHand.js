@@ -2,8 +2,6 @@ import React from "react"
 import "./playerhand.css"
 
 const PlayerHand = ({ playerObject }) => {
-  console.log("this is from player hand", playerObject)
-
   return (
     <div className="player-hand">
       <div>
@@ -13,7 +11,7 @@ const PlayerHand = ({ playerObject }) => {
         playerObject.map((card) => (
           <>
             <div>
-              <img src={card.image}></img>
+              <img src={card.image} alt="card"></img>
             </div>
           </>
         ))}
