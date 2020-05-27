@@ -8,10 +8,10 @@ const PlayerHand = ({ playerObject }) => {
         <p>this is the player hand</p>
       </div>
       {playerObject &&
-        playerObject.map((card) => (
+        playerObject.map((card, id) => (
           <>
             <div>
-              <img src={card.image} alt="card"></img>
+              <img src={card.image} alt={id}></img>
             </div>
           </>
         ))}
