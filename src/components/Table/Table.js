@@ -31,7 +31,6 @@ const Table = () => {
 
   return (
     <div className="table">
-      <h1> This is the table</h1>
       <DragDropContext
         onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
       >
@@ -45,9 +44,10 @@ const Table = () => {
                   style={{
                     width: `250px`,
                     height: `500px`,
-                    background: snapshot.isDraggingOver
-                      ? "lightblue"
-                      : "lightgrey",
+                    // background: snapshot.isDraggingOver
+                    //   ? "#607d3b"
+                    //   : "lightgrey",
+                    backgroundColor: "#5dbb63",
                     padding: 4,
                   }}
                 >
@@ -65,13 +65,17 @@ const Table = () => {
                               ref={provided.innerRef}
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
-                              style={
-                                {
-                                  // userSelect: `none`,
-                                  // padding: `16px`,
-                                  // color: `blue`,
-                                }
-                              }
+                              style={{
+                                userSelect: `none`,
+                                padding: `16px`,
+                                margin: `0 0 8px 0`,
+                                minHeight: "50px",
+                                backgroundColor: snapshot.isDragging
+                                  ? "#b2d3c2"
+                                  : "#728c69",
+                                //this keeps it from causing problems..
+                                ...provided.draggableProps.style,
+                              }}
                             >
                               {item.content}
                             </div>
