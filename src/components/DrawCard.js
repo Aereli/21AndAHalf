@@ -38,15 +38,13 @@ const DrawCard = ({ newData }) => {
 
       <div className="card-object">
         {cardObject.map((card, index) => (
-          <>
-            <img
-              onClick={() => send(index, card)}
-              key={index}
-              className="card-image"
-              src={card.image}
-              alt="card"
-            ></img>
-          </>
+          <img
+            onClick={() => send(index, card)}
+            key={index}
+            className="card-image"
+            src={card.image}
+            alt="card"
+          ></img>
         ))}
       </div>
       <PlayerHand playerObject={playerObject} />
