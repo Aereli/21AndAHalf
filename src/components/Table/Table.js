@@ -42,6 +42,7 @@ const Table = () => {
                   {...provided.droppableProps}
                   ref={provided.innerRef}
                   style={{
+                    // display: `flex`,
                     width: `250px`,
                     height: `500px`,
                     // background: snapshot.isDraggingOver
@@ -52,7 +53,6 @@ const Table = () => {
                   }}
                 >
                   {column.items.map((item, index) => {
-                    // console.log(item)
                     return (
                       <Draggable
                         key={item.id}
