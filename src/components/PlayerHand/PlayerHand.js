@@ -41,7 +41,8 @@ const PlayerHand = ({ playerObject }) => {
                   ref={provided.innerRef}
                   style={{
                     display: `flex`,
-
+                    position: `absolute`,
+                    bottom: `0`,
                     width: `100vw`,
                     height: `300px`,
                     // background: snapshot.isDraggingOver
@@ -66,10 +67,13 @@ const PlayerHand = ({ playerObject }) => {
                               {...provided.dragHandleProps}
                               style={{
                                 userSelect: `none`,
-                                padding: `16px`,
-                                // margin: `0 0 8px 0`,
+                                padding: `3px`,
+                                // margin: `3px`,
                                 // minHeight: "50px",
-                                height: `100px`,
+                                background: snapshot.isDragging
+                                  ? `green`
+                                  : `#99ba83`,
+                                height: `120px`,
 
                                 //this keeps it from causing problems..
                                 ...provided.draggableProps.style,
@@ -90,17 +94,6 @@ const PlayerHand = ({ playerObject }) => {
           )
         })}
       </DragDropContext>
-
-      {/* <div>
-        <p>this is the player hand</p>
-      </div>
-
-      {playerObject &&
-        playerObject.map((card, id) => (
-          <div key={id}>
-            <img key={id} src={card.image} alt={id}></img>
-          </div>
-        ))} */}
     </div>
   )
 }
