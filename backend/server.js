@@ -11,19 +11,19 @@ const app = express()
 // app.use(cors())
 // app.use(express.json())
 
-app.get("/deck", async (request, response) => {
+app.get("/deck", async (req, res) => {
   let { data } = await axios
     .get("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
     .catch((err) => res.status(400).json("Error: " + err))
-  response.send(data)
+  res.send(data)
 })
 
-app.get("/draw", async (request, response) => {
-  const deckId = await request.query.deck_id
+app.get("/draw", async (req, res) => {
+  const deckId = await req.query.deck_id
   let { data } = await axios
     .get(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
     .catch((err) => res.status(400).json("Error: " + err))
-  response.send(data)
+  res.send(data)
 })
 
 if (["production"].includes(process.env.NODE_ENV)) {
