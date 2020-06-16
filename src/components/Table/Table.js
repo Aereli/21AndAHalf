@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import "./table.css"
 // import uuid from "uuid/v4"
-import Data from "./initialData"
-import Column from "./column"
+import Data from "./InitialData"
+import Column from "./Column"
 import { DragDropContext } from "react-beautiful-dnd"
 
 const Table = () => {
