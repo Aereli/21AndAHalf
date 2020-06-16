@@ -1,97 +1,46 @@
 import React, { useState } from "react"
 import "./table.css"
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
-import uuid from "uuid/v4"
-
-const itemsFromBack = [
-  { id: uuid(), content: "first card" },
-  { id: uuid(), content: "second card" },
-  { id: uuid(), content: "third card" },
-]
-
-const columnsFromBack = { [uuid()]: { name: "Title", items: itemsFromBack } }
-
-const onDragEnd = (result, columns, setColumns) => {
-  if (!result.destination) return
-  const { source, destination } = result
-  const column = columns[source.droppableId]
-  const copiedItems = [...column.items]
-  const [removed] = copiedItems.splice(source.index, 1)
-  copiedItems.splice(destination.index, 0, removed)
-  setColumns({
-    ...columns,
-    [source.droppableId]: { ...column, items: copiedItems },
-  })
-}
+// import uuid from "uuid/v4"
+import Data from "./initialData"
+import Column from "./column"
+import { DragDropContext } from "react-beautiful-dnd"
 
 const Table = () => {
-  const [columns, setColumns] = useState(columnsFromBack)
-  // console.log("this object:", Object.entries(columns))
-  // setColumns(...columns, columnsFromBack)
+  const [data, setData] = useState(Data)
+  const [columnsFromBack, setColumnsFromBack] = useState([])
 
+  const onDragEnd = (result) => {
+    if (!result.destination) return
+
+    const { source, destination, draggableId } = result
+    let column = data.columns[source.droppableId]
+    const copiedItems = Array.from(column.taskIds)
+    copiedItems.splice(source.index, 1)
+    copiedItems.splice(destination.index, 0, draggableId)
+
+    const newColumn = { ...column, taskIds: copiedItems }
+
+    const newState = {
+      ...data,
+      columns: { ...data.columns, [newColumn.id]: newColumn },
+    }
+    console.log(newState)
+    setData(newState)
+  }
   return (
-    <div className="table">
+    <>
       <DragDropContext
-        onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
+        onDragEnd={(result) =>
+          onDragEnd(result, columnsFromBack, setColumnsFromBack)
+        }
       >
-        {Object.entries(columns).map(([id, column]) => {
-          return (
-            <Droppable droppableId={id} key={id}>
-              {(provided, snapshot) => (
-                <div
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                  style={{
-                    // display: `flex`,
-                    width: `250px`,
-                    height: `500px`,
-                    // background: snapshot.isDraggingOver
-                    //   ? "#607d3b"
-                    //   : "lightgrey",
-                    backgroundColor: "#5dbb63",
-                    padding: 4,
-                  }}
-                >
-                  {column.items.map((item, index) => {
-                    return (
-                      <Draggable
-                        key={item.id}
-                        draggableId={item.id}
-                        index={index}
-                      >
-                        {(provided, snapshot) => {
-                          return (
-                            <div
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                              style={{
-                                userSelect: `none`,
-                                padding: `16px`,
-                                margin: `0 0 8px 0`,
-                                minHeight: "50px",
-                                backgroundColor: snapshot.isDragging
-                                  ? "#b2d3c2"
-                                  : "#728c69",
-                                //this keeps it from causing problems..
-                                ...provided.draggableProps.style,
-                              }}
-                            >
-                              {item.content}
-                            </div>
-                          )
-                        }}
-                      </Draggable>
-                    )
-                  })}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          )
+        {data.columnsOrder.map((columnId) => {
+          const column = data.columns[columnId]
+          const tasks = column.taskIds.map((taskId) => data.tasks[taskId])
+          return <Column key={column.id} column={column} tasks={tasks} />
         })}
       </DragDropContext>
-    </div>
+    </>
   )
 }
 
