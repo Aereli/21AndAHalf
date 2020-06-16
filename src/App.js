@@ -29,7 +29,9 @@ function App() {
         <h2>Deck ID: {newData}</h2>
       </div>
       <button onClick={newDeckHandleClick}>New Deck</button>
-      <Table />
+      <div className="table">
+        <Table />
+      </div>
       <div className={toggle}>
         <DrawCard newData={newData}></DrawCard>
       </div>

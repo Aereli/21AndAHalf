@@ -1,9 +1,18 @@
 import React, { useState } from "react"
 import "./table.css"
-// import uuid from "uuid/v4"
 import Data from "./InitialData"
 import Column from "./Column"
 import { DragDropContext } from "react-beautiful-dnd"
+import styled from "styled-components"
+
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: 200px 200px;
+  grid-template-rows: 200px 200px;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  text-align: center;
+`
 
 const Table = () => {
   const [data, setData] = useState(Data)
@@ -19,12 +28,10 @@ const Table = () => {
     copiedItems.splice(destination.index, 0, draggableId)
 
     const newColumn = { ...column, taskIds: copiedItems }
-
     const newState = {
       ...data,
       columns: { ...data.columns, [newColumn.id]: newColumn },
     }
-    console.log(newState)
     setData(newState)
   }
   return (
@@ -34,11 +41,13 @@ const Table = () => {
           onDragEnd(result, columnsFromBack, setColumnsFromBack)
         }
       >
-        {data.columnsOrder.map((columnId) => {
-          const column = data.columns[columnId]
-          const tasks = column.taskIds.map((taskId) => data.tasks[taskId])
-          return <Column key={column.id} column={column} tasks={tasks} />
-        })}
+        <Container>
+          {data.columnsOrder.map((columnId) => {
+            const column = data.columns[columnId]
+            const tasks = column.taskIds.map((taskId) => data.tasks[taskId])
+            return <Column key={column.id} column={column} tasks={tasks} />
+          })}
+        </Container>
       </DragDropContext>
     </>
   )
