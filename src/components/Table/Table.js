@@ -16,7 +16,6 @@ const Container = styled.div`
 
 const Table = () => {
   const [data, setData] = useState(Data)
-  const [columnsFromBack, setColumnsFromBack] = useState([])
 
   const onDragEnd = (result) => {
     if (!result.destination) return
@@ -59,11 +58,7 @@ const Table = () => {
 
   return (
     <>
-      <DragDropContext
-        onDragEnd={(result) =>
-          onDragEnd(result, columnsFromBack, setColumnsFromBack)
-        }
-      >
+      <DragDropContext onDragEnd={(result) => onDragEnd(result)}>
         <Container>
           {data.columnsOrder.map((columnId) => {
             const column = data.columns[columnId]
