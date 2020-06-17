@@ -20,20 +20,43 @@ const Table = () => {
 
   const onDragEnd = (result) => {
     if (!result.destination) return
-
     const { source, destination, draggableId } = result
-    let column = data.columns[source.droppableId]
-    const copiedItems = Array.from(column.taskIds)
-    copiedItems.splice(source.index, 1)
-    copiedItems.splice(destination.index, 0, draggableId)
 
-    const newColumn = { ...column, taskIds: copiedItems }
+    const start = data.columns[source.droppableId]
+    const finish = data.columns[destination.droppableId]
+
+    if (start === finish) {
+      const copiedItems = Array.from(start.taskIds)
+      copiedItems.splice(source.index, 1)
+      copiedItems.splice(destination.index, 0, draggableId)
+
+      const newColumn = { ...start, taskIds: copiedItems }
+      const newState = {
+        ...data,
+        columns: { ...data.columns, [newColumn.id]: newColumn },
+      }
+      setData(newState)
+      return
+    }
+    //move lists
+    const startTaskIds = Array.from(start.taskIds)
+    startTaskIds.splice(source.index, 1)
+    const newStart = { ...start, taskIds: startTaskIds }
+
+    const finishTaskIds = Array.from(finish.taskIds)
+    finishTaskIds.splice(destination.index, 0, draggableId)
+    const newFinish = { ...finish, taskIds: finishTaskIds }
     const newState = {
       ...data,
-      columns: { ...data.columns, [newColumn.id]: newColumn },
+      columns: {
+        ...data.columns,
+        [newStart.id]: newStart,
+        [newFinish.id]: newFinish,
+      },
     }
     setData(newState)
   }
+
   return (
     <>
       <DragDropContext
