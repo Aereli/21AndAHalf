@@ -14,8 +14,12 @@ const Container = styled.div`
   text-align: center;
 `
 
-const Table = () => {
+const Table = (playerObject) => {
+  console.log("table", playerObject.playerObject)
+  const play = playerObject.playerObject
+
   const [data, setData] = useState(Data)
+  console.log("data", data)
 
   const onDragEnd = (result) => {
     if (!result.destination) return
@@ -23,13 +27,19 @@ const Table = () => {
 
     const start = data.columns[source.droppableId]
     const finish = data.columns[destination.droppableId]
+    const hand = data.tasks
 
+    console.log("hand", hand)
     if (start === finish) {
       const copiedItems = Array.from(start.taskIds)
+
+      console.log("copied", copiedItems)
       copiedItems.splice(source.index, 1)
       copiedItems.splice(destination.index, 0, draggableId)
 
       const newColumn = { ...start, taskIds: copiedItems }
+      const temp = { ...start, taskIds: playerObject.playerObject }
+      console.log("temp", temp)
       const newState = {
         ...data,
         columns: { ...data.columns, [newColumn.id]: newColumn },

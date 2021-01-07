@@ -7,7 +7,8 @@ const Container = styled.div`
   padding: 8px;
   background-color: white;
 `
-const Task = (props) => {
+const Task = (props, playerObject) => {
+  // console.log("from-task", playerObject)
   return (
     <>
       <Draggable draggableId={props.task.id} index={props.index}>

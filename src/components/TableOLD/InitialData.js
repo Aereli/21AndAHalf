@@ -1,8 +1,8 @@
 const data = {
   tasks: {
-    task1: { id: "task1", content: "content1" },
-    task2: { id: "task2", content: "content2" },
-    task3: { id: "task3", content: "content3" },
+    task1: { id: "task1", content: "content1", card: [] },
+    task2: { id: "task2", content: "content2", card: [] },
+    task3: { id: "task3", content: "content3", card: [] },
   },
 
   columns: {
