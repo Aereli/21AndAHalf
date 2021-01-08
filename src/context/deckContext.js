@@ -27,8 +27,9 @@ const shuffledDeck = () => {
 export const DeckContextProvider = ({ children }) => {
   const [deck, setDeck] = useState(shuffledDeck())
   const [cardsOnTable, setCardsOnTable] = useState([])
-  const [discardedCards, setDiscardedCards] = useState([])
+  // const [discardedCards, setDiscardedCards] = useState([])
   const [playerHand, setPlayerHand] = useState([])
+  const [bankedCards, setBankedcards] = useState([])
 
   useEffect(() => {
     if (deck.length === 0) setDeck(null)
@@ -39,7 +40,7 @@ export const DeckContextProvider = ({ children }) => {
     playerHand.splice(cardIndex, 1)
     setPlayerHand([...playerHand])
     setCardsOnTable([...cardsOnTable, card])
-    return cardsOnTable, playerHand
+    return { cardsOnTable, playerHand }
   }
 
   const deal = (number) => {
@@ -48,21 +49,13 @@ export const DeckContextProvider = ({ children }) => {
     return dealOut
   }
 
-  const sendToDiscardPile = (card) => {
+  const sendToBank = (card) => {
     let cardIndex = deck.indexOf(card)
-    deck.splice(cardIndex, 1)
-    setDeck([...deck])
-    setDiscardedCards([...discardedCards, card])
-    return discardedCards
+    playerHand.splice(cardIndex, 1)
+    setPlayerHand([...playerHand])
+    setBankedcards([...bankedCards, card])
+    return bankedCards
   }
-
-  // const sendCardToPlayer = (card) => {
-  //   let cardIndex = deck.indexOf(card)
-  //   deck.splice(cardIndex, 1)
-  //   setDeck([...deck])
-  //   setPlayerHand([...playerHand, card])
-  //   return playerHand
-  // }
 
   return (
     <DeckContext.Provider
@@ -71,11 +64,10 @@ export const DeckContextProvider = ({ children }) => {
         deck,
         sendToTable,
         cardsOnTable,
-        // sendCardToPlayer,
         setPlayerHand,
         playerHand,
-        sendToDiscardPile,
-        discardedCards,
+        sendToBank,
+        bankedCards,
       }}
     >
       {children}

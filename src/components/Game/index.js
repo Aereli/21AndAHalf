@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { DeckContext } from '../../context/deckContext'
-import DiscardPile from '../DiscardPile'
+import BankPile from '../BankPile'
 import PlayersHand from '../PlayersHand'
 import Table from '../Table'
 import styles from './styles.module.scss'
@@ -15,7 +15,8 @@ const Game = () => {
     playerHand,
     // sendCardToPlayer,
     setPlayerHand,
-    discardedCards,
+    bankedCards,
+    // discardedCards,
     // sendToDiscardPile,
   } = useContext(DeckContext)
 
@@ -45,7 +46,7 @@ const Game = () => {
         <PlayersHand playerCards={playerHand} />
       </div>
 
-      <DiscardPile discardedCards={discardedCards} />
+      <BankPile bankedCards={bankedCards} />
     </div>
   )
 }

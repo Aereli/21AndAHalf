@@ -1,7 +1,13 @@
-.cardImage {
-  width: 100px;
-}
 .container {
   display: flex;
-  min-height: 150px;
+  min-height: 180px;
+}
+
+.card {
+  margin: 1rem;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
 }
