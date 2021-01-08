@@ -24,20 +24,17 @@ const PlayersHand = ({ playerCards }) => {
   }
 
   return (
-    <div className={styles.table}>
+    <div className={styles.container}>
       <h2>Player1</h2>
 
       {playerCards.map((card) => (
-        //TODO: give two options,
-        // send card to table,
-        // send card to discard pile.
-        <>
+        <div>
           <button onClick={() => sendToTable(card)}>send to table</button>
           {/* <button onClick={() => sendToTrash(card)}>send to trash</button> */}
           <div>
             <img className={styles.cardImage} src={card.image} />
           </div>
-        </>
+        </div>
       ))}
     </div>
   )

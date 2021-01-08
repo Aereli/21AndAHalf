@@ -1,8 +1,0 @@
-.table {
-  display: flex;
-  /* flex-direction: column; */
-  height: 500px;
-  position: absolute;
-  right: 0;
-  top: 0;
-}

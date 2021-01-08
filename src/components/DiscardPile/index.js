@@ -1,16 +1,15 @@
 import React from 'react'
+import styles from './styles.module.scss'
 
-const DiscardPile = ({ trashPile }) => {
+const DiscardPile = ({ discardedCards }) => {
   return (
-    <div>
-      <h1>Discard Pile</h1>
-      {trashPile.map((trashCard) => {
+    <div className={styles.background}>
+      <h2>Discard Pile</h2>
+      {discardedCards.map((trashCard) => {
         return (
-          <>
-            <div>
-              <img className="card" src={trashCard.image} />
-            </div>
-          </>
+          <div>
+            <img className="card" src={trashCard.image} />
+          </div>
         )
       })}
     </div>

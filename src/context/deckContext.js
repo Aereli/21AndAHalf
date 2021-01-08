@@ -28,7 +28,7 @@ const shuffledDeck = () => {
 export const DeckContextProvider = ({ children }) => {
   const [deck, setDeck] = useState(shuffledDeck())
   const [cardsOnTable, setCardsOnTable] = useState([])
-  const [trashPile, setTrashPile] = useState([])
+  const [discardedCards, setDiscardedCards] = useState([])
   const [playerHand, setPlayerHand] = useState([])
 
   useEffect(() => {
@@ -47,15 +47,17 @@ export const DeckContextProvider = ({ children }) => {
   }
 
   const sendToDiscardPile = (card) => {
-    const removeCard = deck.filter((check) => check === card)
-    setTrashPile([...trashPile, removeCard])
-    return trashPile
+    let cardIndex = deck.indexOf(card)
+    deck.splice(cardIndex, 1)
+    setDeck([...deck])
+    setDiscardedCards([...discardedCards, card])
+    return discardedCards
   }
 
   const sendCardToPlayer = (card) => {
     let cardIndex = deck.indexOf(card)
     deck.splice(cardIndex, 1)
-    console.log('deck', deck)
+    setDeck([...deck])
     setPlayerHand([...playerHand, card])
     return playerHand
   }
@@ -69,7 +71,7 @@ export const DeckContextProvider = ({ children }) => {
         sendCardToPlayer,
         playerHand,
         sendToDiscardPile,
-        trashPile,
+        discardedCards,
       }}
     >
       {children}

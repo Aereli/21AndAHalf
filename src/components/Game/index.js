@@ -4,61 +4,61 @@ import DiscardPile from '../DiscardPile'
 import PlayersHand from '../PlayersHand'
 import Table from '../Table'
 import styles from './styles.module.scss'
+import BackOfCard from '../../images/backOfCard.jpg'
+import calculateUserCards from '../../utils/calculateUserCards'
 
 const Game = () => {
   const {
     deal,
-    deck,
     cardsOnTable,
     playerHand,
     sendCardToPlayer,
+    discardedCards,
     sendToDiscardPile,
-    trashPile,
-
-    setTrashPile,
   } = useContext(DeckContext)
-  const [playerCards, setPlayerCards] = useState([])
+
   const [drawDeck, setDrawDeck] = useState([])
-  // const [trashPile, setTrashPile] = useState([])
 
-  // function sendToTrash(card) {
-  //   setTrashPile([...trashPile, card])
-  //   setDrawDeck(null)
-  //   console.log(trashPile)
-  // }
-
-  console.log('playerhand:', playerHand)
-
+  //whenever a card gets played the card drawn becomes null.
   useEffect(() => {
-    console.log('draw', deck)
-  }, [deal, playerHand])
+    setDrawDeck(null)
+  }, [playerHand, discardedCards])
+
+  // calculateUserCards(playerHand)
 
   return (
     <div>
-      <button onClick={() => setDrawDeck(deal(1))}>Draw</button>
-
-      {drawDeck ? (
-        drawDeck.map((card) => {
-          return (
-            <div>
-              <button onClick={() => sendCardToPlayer(card)}>
-                send to player
-              </button>
-              {/* <button onClick={() => sendToTrash(card)}> */}
-              <button onClick={() => sendToDiscardPile(card)}>
-                send to discard Pile
-              </button>
-              <img className="card" src={card.image} />
-            </div>
-          )
-        })
-      ) : (
-        <p>no cards</p>
-      )}
-
       <Table cardsOnTable={cardsOnTable} />
 
-      <DiscardPile trashPile={trashPile} />
+      <div className={styles.drawPile}>
+        <button
+          onClick={() => setDrawDeck(deal(calculateUserCards(playerHand)))}
+        >
+          Draw
+        </button>
+        {drawDeck ? (
+          drawDeck.map((card) => {
+            console.log('card being sent', card)
+            return (
+              <div>
+                <img className="card" src={card.image} />
+                <div>
+                  <button onClick={() => sendCardToPlayer(card)}>
+                    send to player
+                  </button>
+                </div>
+                <button onClick={() => sendToDiscardPile(card)}>
+                  send to discard Pile
+                </button>
+              </div>
+            )
+          })
+        ) : (
+          <img className="card" src={BackOfCard} alt="back of card" />
+        )}
+      </div>
+
+      <DiscardPile discardedCards={discardedCards} />
 
       <PlayersHand playerCards={playerHand} />
     </div>
