@@ -7,7 +7,7 @@ const Table = ({ cardsOnTable }) => {
       <h1>this is table</h1>
       {cardsOnTable.map((card) => (
         <div>
-          <img className="card" src={card.image} />
+          <img className="card" src={card.image} alt="card" />
         </div>
       ))}
     </div>

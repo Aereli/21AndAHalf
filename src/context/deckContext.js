@@ -1,5 +1,4 @@
 import React, { createContext, useState, useEffect } from 'react'
-import PlayersHand from '../components/PlayersHand'
 
 export const DeckContext = createContext()
 
@@ -35,9 +34,12 @@ export const DeckContextProvider = ({ children }) => {
     if (deck.length === 0) setDeck(null)
   }, [deck.length])
 
-  const table = (chosenCards) => {
-    setCardsOnTable([...cardsOnTable, chosenCards])
-    return cardsOnTable
+  const sendToTable = (card) => {
+    let cardIndex = playerHand.indexOf(card)
+    playerHand.splice(cardIndex, 1)
+    setPlayerHand([...playerHand])
+    setCardsOnTable([...cardsOnTable, card])
+    return cardsOnTable, playerHand
   }
 
   const deal = (number) => {
@@ -54,21 +56,23 @@ export const DeckContextProvider = ({ children }) => {
     return discardedCards
   }
 
-  const sendCardToPlayer = (card) => {
-    let cardIndex = deck.indexOf(card)
-    deck.splice(cardIndex, 1)
-    setDeck([...deck])
-    setPlayerHand([...playerHand, card])
-    return playerHand
-  }
+  // const sendCardToPlayer = (card) => {
+  //   let cardIndex = deck.indexOf(card)
+  //   deck.splice(cardIndex, 1)
+  //   setDeck([...deck])
+  //   setPlayerHand([...playerHand, card])
+  //   return playerHand
+  // }
 
   return (
     <DeckContext.Provider
       value={{
         deal,
-        table,
+        deck,
+        sendToTable,
         cardsOnTable,
-        sendCardToPlayer,
+        // sendCardToPlayer,
+        setPlayerHand,
         playerHand,
         sendToDiscardPile,
         discardedCards,

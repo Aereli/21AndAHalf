@@ -10,21 +10,19 @@ import calculateUserCards from '../../utils/calculateUserCards'
 const Game = () => {
   const {
     deal,
+    deck,
     cardsOnTable,
     playerHand,
-    sendCardToPlayer,
+    // sendCardToPlayer,
+    setPlayerHand,
     discardedCards,
-    sendToDiscardPile,
+    // sendToDiscardPile,
   } = useContext(DeckContext)
 
-  const [drawDeck, setDrawDeck] = useState([])
-
   //whenever a card gets played the card drawn becomes null.
-  useEffect(() => {
-    setDrawDeck(null)
-  }, [playerHand, discardedCards])
-
-  // calculateUserCards(playerHand)
+  // useEffect(() => {
+  //   setDrawDeck(null)
+  // }, [playerHand, discardedCards])
 
   return (
     <div>
@@ -32,35 +30,22 @@ const Game = () => {
 
       <div className={styles.drawPile}>
         <button
-          onClick={() => setDrawDeck(deal(calculateUserCards(playerHand)))}
+          onClick={() =>
+            setPlayerHand(
+              playerHand.concat(deal(calculateUserCards(playerHand)))
+            )
+          }
         >
           Draw
         </button>
-        {drawDeck ? (
-          drawDeck.map((card) => {
-            console.log('card being sent', card)
-            return (
-              <div>
-                <img className="card" src={card.image} />
-                <div>
-                  <button onClick={() => sendCardToPlayer(card)}>
-                    send to player
-                  </button>
-                </div>
-                <button onClick={() => sendToDiscardPile(card)}>
-                  send to discard Pile
-                </button>
-              </div>
-            )
-          })
-        ) : (
-          <img className="card" src={BackOfCard} alt="back of card" />
-        )}
+        <p>{deck.length}</p>
+
+        <img className="card" src={BackOfCard} alt="back of card" />
+
+        <PlayersHand playerCards={playerHand} />
       </div>
 
       <DiscardPile discardedCards={discardedCards} />
-
-      <PlayersHand playerCards={playerHand} />
     </div>
   )
 }

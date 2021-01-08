@@ -8,7 +8,7 @@ const DiscardPile = ({ discardedCards }) => {
       {discardedCards.map((trashCard) => {
         return (
           <div>
-            <img className="card" src={trashCard.image} />
+            <img className="card" src={trashCard.image} alt="card" />
           </div>
         )
       })}
