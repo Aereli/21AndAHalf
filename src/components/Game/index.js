@@ -13,17 +13,9 @@ const Game = () => {
     deck,
     cardsOnTable,
     playerHand,
-    // sendCardToPlayer,
     setPlayerHand,
     bankedCards,
-    // discardedCards,
-    // sendToDiscardPile,
   } = useContext(DeckContext)
-
-  //whenever a card gets played the card drawn becomes null.
-  // useEffect(() => {
-  //   setDrawDeck(null)
-  // }, [playerHand, discardedCards])
 
   return (
     <div>

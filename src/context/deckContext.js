@@ -29,7 +29,7 @@ export const DeckContextProvider = ({ children }) => {
   const [cardsOnTable, setCardsOnTable] = useState([])
   // const [discardedCards, setDiscardedCards] = useState([])
   const [playerHand, setPlayerHand] = useState([])
-  const [bankedCards, setBankedcards] = useState([])
+  const [bankedCards, setBankedCards] = useState([[], [], [], []])
 
   useEffect(() => {
     if (deck.length === 0) setDeck(null)
@@ -49,11 +49,11 @@ export const DeckContextProvider = ({ children }) => {
     return dealOut
   }
 
-  const sendToBank = (card) => {
-    let cardIndex = deck.indexOf(card)
+  const sendToBank = (card, bankSlot) => {
+    let cardIndex = playerHand.indexOf(card)
+    bankedCards[bankSlot].push(card)
     playerHand.splice(cardIndex, 1)
     setPlayerHand([...playerHand])
-    setBankedcards([...bankedCards, card])
     return bankedCards
   }
 

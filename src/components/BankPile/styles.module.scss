@@ -3,3 +3,13 @@
   min-height: 150px;
   background: lightslategray;
 }
+
+.slot {
+  display: flex;
+  div {
+    margin: 1rem;
+    width: 100px;
+    height: 120px;
+    border: 1px black solid;
+  }
+}
