@@ -27,7 +27,6 @@ const shuffledDeck = () => {
 export const DeckContextProvider = ({ children }) => {
   const [deck, setDeck] = useState(shuffledDeck())
   const [cardsOnTable, setCardsOnTable] = useState([])
-  // const [discardedCards, setDiscardedCards] = useState([])
   const [playerHand, setPlayerHand] = useState([])
   const [bankedCards, setBankedCards] = useState([[], [], [], []])
   // const [cardSlot, setCardSlot] = useState([])

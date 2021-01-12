@@ -7,9 +7,10 @@ const PlayersHand = ({ playerCards }) => {
   const [toggle, setToggle] = useState(true)
   const [activeCard, setActiveCard] = useState(null)
 
-  function toggleBank(card) {
+  function toggleBank(card, e) {
     setToggle(false)
     setActiveCard(card)
+    // setActiveCard(e.target.value)
   }
 
   function bankButton(e, card) {
@@ -22,8 +23,20 @@ const PlayersHand = ({ playerCards }) => {
       {playerCards.map((card, i) => (
         <div key={i} className={styles.card}>
           <div className={styles.buttons}>
-            <button onClick={() => sendToTable(card)}>send to table</button>
-            <button onClick={() => toggleBank(card)}>send to bank</button>
+            {/* <button onClick={() => sendToTable(card)}>send to table</button> */}
+            <button
+              value="table"
+              className={
+                card === activeCard && !toggle
+                  ? styles.tableButton
+                  : styles.activeTableButton
+              }
+              onClick={(e) => toggleBank(card, e)}
+            >
+              send to table
+            </button>
+            <button onClick={(e) => toggleBank(card, e)}>send to bank</button>
+
             {activeCard === card && (
               <div className={toggle ? styles.activeButton : styles.bankButton}>
                 <button value="1" onClick={(e) => bankButton(e, card)}>
