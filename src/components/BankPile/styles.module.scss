@@ -4,12 +4,21 @@
   background: lightslategray;
 }
 
-.slot {
+.bank {
   display: flex;
-  div {
+
+  .slotContainer p {
+    text-align: center;
+  }
+  .slot {
+    position: relative;
     margin: 1rem;
     width: 100px;
-    height: 120px;
+    height: 150px;
     border: 1px black solid;
+  }
+
+  img {
+    position: absolute;
   }
 }
