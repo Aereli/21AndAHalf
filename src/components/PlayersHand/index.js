@@ -5,18 +5,15 @@ import styles from './styles.module.scss'
 const PlayersHand = ({ playerCards }) => {
   const { sendToTable, sendToBank } = useContext(DeckContext)
   const [toggle, setToggle] = useState(true)
-  // const [bankSlot, setBankSlot] = useState(null)
   const [activeCard, setActiveCard] = useState(null)
 
   function toggleBank(card) {
-    setToggle(!toggle)
+    setToggle(false)
     setActiveCard(card)
   }
 
   function bankButton(e, card) {
-    // setBankSlot(e.target.value)
     sendToBank(card, e.target.value - 1)
-    // console.log('bank slot', bankSlot)
   }
 
   return (
