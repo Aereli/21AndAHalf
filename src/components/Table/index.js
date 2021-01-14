@@ -3,7 +3,6 @@ import BankPile from '../BankPile'
 
 import styles from './styles.module.scss'
 const Table = ({ cardsOnTable }) => {
-  console.log(cardsOnTable)
   return (
     <div className={styles.container}>
       <h1>this is table</h1>

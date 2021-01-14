@@ -7,15 +7,11 @@
   margin: 1rem;
 }
 
-.buttons {
+.buttonsContainer {
   display: flex;
   flex-direction: column;
 }
 
-.activeButton {
-  display: none;
-}
-
-.tableButton {
+.active {
   background: greenyellow;
 }

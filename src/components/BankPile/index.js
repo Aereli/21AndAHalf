@@ -19,8 +19,8 @@ const BankPile = ({ bankedCards }) => {
     <div className={styles.background}>
       <h2>Bank</h2>
       <div className={styles.bank}>
-        {slots.map((slot) => (
-          <div className={styles.slotContainer}>
+        {slots.map((slot, i) => (
+          <div key={i} className={styles.slotContainer}>
             <p>Bank Slot : {slot + 1}</p>
             <div className={styles.slot}>{bankSlots(slot)}</div>
           </div>
