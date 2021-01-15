@@ -3,7 +3,7 @@ import { DeckContext } from '../../context/deckContext'
 import styles from './styles.module.scss'
 
 const PlayersHand = ({ playerCards }) => {
-  const { sendToTable, sendToBank } = useContext(DeckContext)
+  const { sendToTableOrBank } = useContext(DeckContext)
   const [toggle, setToggle] = useState(false)
   const [activeCard, setActiveCard] = useState(null)
   const slots = [1, 2, 3, 4]
@@ -11,12 +11,6 @@ const PlayersHand = ({ playerCards }) => {
   function activateCardClicked(card, e) {
     card.area = e
     setActiveCard(card)
-  }
-
-  function sendTableOrBank(value, card) {
-    if (card.area === 'bank') {
-      sendToBank(card, value)
-    } else sendToTable(card, value)
   }
 
   function sendToButton(card, value) {
@@ -47,7 +41,9 @@ const PlayersHand = ({ playerCards }) => {
                     <button
                       key={i}
                       value={slot}
-                      onClick={(e) => sendTableOrBank(e.target.value - 1, card)}
+                      onClick={(e) =>
+                        sendToTableOrBank(card, e.target.value - 1)
+                      }
                     >
                       {slot}
                     </button>

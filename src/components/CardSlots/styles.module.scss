@@ -1,11 +1,6 @@
-.background {
+.container {
   display: flex;
-  height: 500px;
-  background: lightslategray;
-}
-
-.bank {
-  display: flex;
+  height: 400px;
 
   .slotContainer p {
     text-align: center;

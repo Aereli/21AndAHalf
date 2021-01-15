@@ -1,12 +1,12 @@
-.draw {
-  color: blue;
-}
-
-.cardImage {
-  width: 100px;
+.table {
+  background: #728c69;
 }
 
 .drawPile {
   display: flex;
   min-height: 180px;
+}
+
+.player1 {
+  background-color: #546e7a;
 }

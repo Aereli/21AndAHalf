@@ -1,8 +1,7 @@
 import React, { useContext } from 'react'
 import { DeckContext } from '../../context/deckContext'
-import BankPile from '../BankPile'
+import CardSlotS from '../CardSlots'
 import PlayersHand from '../PlayersHand'
-import Table from '../Table'
 import styles from './styles.module.scss'
 import BackOfCard from '../../images/backOfCard.jpg'
 import calculateUserCards from '../../utils/calculateUserCards'
@@ -19,26 +18,30 @@ const Game = () => {
 
   return (
     <div>
-      <Table cardsOnTable={cardsOnTable} />
-
-      <div className={styles.drawPile}>
-        <button
-          onClick={() =>
-            setPlayerHand(
-              playerHand.concat(deal(calculateUserCards(playerHand)))
-            )
-          }
-        >
-          Draw
-        </button>
-        <p>{deck.length}</p>
-
-        <img className="card" src={BackOfCard} alt="back of card" />
-
-        <PlayersHand playerCards={playerHand} />
+      <div className={styles.table}>
+        <CardSlotS bankedCards={cardsOnTable} />
       </div>
 
-      <BankPile bankedCards={bankedCards} />
+      <div className={styles.player1}>
+        <div className={styles.drawPile}>
+          <button
+            onClick={() =>
+              setPlayerHand(
+                playerHand.concat(deal(calculateUserCards(playerHand)))
+              )
+            }
+          >
+            Draw
+          </button>
+          <p>{deck.length}</p>
+
+          <img className="card" src={BackOfCard} alt="back of card" />
+
+          <PlayersHand playerCards={playerHand} />
+        </div>
+
+        <CardSlotS bankedCards={bankedCards} />
+      </div>
     </div>
   )
 }
