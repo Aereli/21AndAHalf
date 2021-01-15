@@ -1,7 +1,13 @@
+body {
+  margin: 0;
+}
+
 .card {
   width: 100px;
 }
 
 .button:focus {
-  background: greenyellow;
+  background: #728c69;
+  outline: none;
+  border: none;
 }
